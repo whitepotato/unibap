@@ -1,10 +1,96 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-  <title>My GitHub Page</title>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f9f9f9;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    #inputArea {
+      width: 300px;
+      height: 80px;
+      font-size: 18px;
+      padding: 10px;
+      border: 2px solid #aaa;
+      border-radius: 5px;
+      resize: none;
+    }
+
+    #submitBtn {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #4285f4;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #submitBtn:hover {
+      background-color: #3367d6;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 24px;
+      color: #222;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <p>これは私のGitHubページです。</p>
+
+<h1></h1>
+
+<textarea id="inputArea" placeholder=""></textarea><br>
+<button id="submitBtn">OK</button>
+
+<div id="result"></div>
+
+<script>
+  const inputArea = document.getElementById('inputArea');
+  const submitBtn = document.getElementById('submitBtn');
+  const result = document.getElementById('result');
+
+  submitBtn.addEventListener('click', () => {
+    const input = inputArea.value.trim();
+
+    if (!input) {
+      result.textContent = 'empty';
+      return;
+    }
+
+    const formData = new URLSearchParams();
+    formData.append('input', input);
+
+    result.textContent = '...';
+
+    fetch('https://uniba-bhfscuhrchcmhncc.westeurope-01.azurewebsites.net/tc/upload.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: formData
+    })
+    .then(res => res.text())
+    .then(text => {
+      result.textContent = 'result: ' + text;
+    })
+    .catch(err => {
+      result.textContent = 'error';
+      console.error(err);
+    });
+  });
+</script>
+
 </body>
 </html>
