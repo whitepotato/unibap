@@ -85,7 +85,7 @@
     .then(res => res.text())
     .then(text => {
       result.textContent = 'result: ' + text;
-      inputArea.value = ''; // ✅ 入力欄を送信後にクリア
+      inputArea.value = ''; //入力欄を送信後にクリア
     })
     .catch(err => {
       result.textContent = 'error';
