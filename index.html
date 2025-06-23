@@ -41,7 +41,7 @@
     }
 
     #result {
-      margin-top: 20px;
+      margin-bottom: 20px; /* 結果をフォームの上に表示するため margin-top → margin-bottom に */
       font-size: 24px;
       color: #222;
     }
@@ -51,10 +51,11 @@
 
 <h1></h1>
 
+<!-- ✅ 結果表示をフォームの上に配置 -->
+<div id="result"></div>
+
 <textarea id="inputArea" placeholder=""></textarea><br>
 <button id="submitBtn">OK</button>
-
-<div id="result"></div>
 
 <script>
   const inputArea = document.getElementById('inputArea');
@@ -84,6 +85,7 @@
     .then(res => res.text())
     .then(text => {
       result.textContent = 'result: ' + text;
+      inputArea.value = ''; // ✅ 入力欄を送信後にクリア
     })
     .catch(err => {
       result.textContent = 'error';
